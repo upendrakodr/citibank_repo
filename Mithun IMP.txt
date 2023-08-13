@@ -1,0 +1,2779 @@
+Oracle Java Installation - Linux - Mithun Technologies - 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/ 
+Java Installation  in RHEL
+#Login as a root user
+sudo su -
+
+##Change dir to /opt
+cd /opt
+yum install wget -y
+wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+yum install jdk-8u131-linux-x64.rpm -y
+
+java -version
+
+ 
+
+ 
+
+at October 07, 2022 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Java
+Wednesday, September 21, 2022
+Jenkins Installation in RedHat Linux Server - Mithun Technologies - 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/ 
+Jenkins Installation in RedHat Linux Server
+ 
+
+ sudo su -
+
+yum install wget -y
+
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum install fontconfig java-11-openjdk -y
+yum install jenkins -y
+systemctl enable jenkins
+
+systemctl start jenkins
+
+systemctl status jenkins
+at September 21, 2022 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Jenkins
+Tuesday, March 22, 2022
+Install Nginx HTTP server by using specific version package - RHEL 8 - Mithun Technologies - 9980923226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Nginx HTTP Server Installation
+ Method 3
+
+#Login as root user and execute the below command for install nginx http server.
+sudo su -
+yum -y install wget
+wget https://nginx.org/packages/rhel/6Server/x86_64/RPMS/nginx-1.18.0-2.el6.ngx.x86_64.rpm
+yum install nginx-1.18.0-2.el6.ngx.x86_64.rpm
+systemctl start nginx
+systemctl enable nginx
+nginx -V
+at March 22, 2022 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: HTTP Server
+Tuesday, January 4, 2022
+Given User is root user or not.. - Mithun Technologies - +91 99809 23226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ Write a Shellscript to given user is root user or not
+
+
+#!/bin/bash      
+#title                :
+#description     :
+#author             : Mithun Technologies
+#date                : 08112012
+#version           : 2.0    
+#usage             :
+#Copy Rights   : Mithun Technologies
+#Contact          : 9980923226
+
+
+
+echo "Please enter the user name"
+read userName
+
+if [ `id -u $userName` -eq 0 ]
+then
+echo "Give user is root user"
+else
+echo "Given user is not root user"
+fi
+
+
+
+
+
+
+at January 04, 2022 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Shell Script
+Friday, November 19, 2021
+JBoss/Wildfly Installation in RedHat Linux Server - Mithun Technologies - +91 99809 23226
+ 
+
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+  JBoss/Wildfly  Installation in RedHat Linux Server
+Login As a root user
+
+sudo su -
+
+cd /opt
+
+wget https://github.com/wildfly/wildfly/releases/download/25.0.1.Final/wildfly-preview-25.0.1.Final.zip
+
+unzip wildfly-preview-25.0.1.Final.zip
+
+cd /opt/wildfly-<<Version>>.Final/standalone/configuration/
+
+cd /opt/wildfly-preview-25.0.1.Final/standalone/configuration/
+
+Find and replace 127.0.0.1 with your Private IP address in standalone.xml like below
+
+vim /opt/wildfly-13.0.0.Final/standalone/configuration/standalone.xml
+<wsdl-host>${jboss.bind.address:172.31.24.62}</wsdl-host>
+<inet-address value="${jboss.bind.address.management:172.31.24.62}"/>
+<inet-address value="${jboss.bind.address:172.31.24.62}"/>
+
+sh /opt/wildfly-preview-25.0.1.Final/bin/add-user.sh
+sh /opt/wildfly-preview-25.0.1.Final/bin/standalone.sh
+
+
+
+
+at November 19, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Jboss Wildfly
+Friday, November 12, 2021
+Tekton Dashboard Installation in RedHat Linux Server - Mithun Technologies - +91 99809 23226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Tekton Dashboard in RedHat Linux Server
+ To Install Tekton Dashboard first we need to create a cluster. To create a cluster we can use Kubernetes.
+
+First Create a Kubernetes Cluster using below steps.
+
+For SELinux is disabling
+setenforce 0
+
+For SELinux is disabling permanently
+
+sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+Enable the Ports, if not enabled, by using below commands.
+
+ firewall-cmd --permanent --add-port=6443/tcp
+ firewall-cmd --permanent --add-port=2379-2380/tcp
+ firewall-cmd --permanent --add-port=10250/tcp
+ firewall-cmd --permanent --add-port=10251/tcp
+ firewall-cmd --permanent --add-port=10252/tcp
+ firewall-cmd --permanent --add-port=10255/tcp
+ firewall-cmd --reload
+ 
+ modprobe br_netfilter
+ echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+ 
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+
+yum install -y kubelet kubeadm  kubectl
+
+systemctl restart docker && systemctl enable docker
+
+systemctl  restart kubelet && systemctl enable kubelet
+
+
+Note: Before executing above command need to disable swap memory by using below command
+
+swapoff -a : Temporarly
+
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab : permanently
+
+
+vi kubeadm-config.yaml
+
+# kubeadm-config.yaml
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1beta3
+kubernetesVersion: v1.22.3
+---
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: cgroupfs
+
+
+kubeadm init --config kubeadm-config.yaml
+
+
+Switch to tekton normal user and execute below commands
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+
+kubectl taint node footslog1.fyre.ibm.com node-role.kubernetes.io/master:NoSchedule-
+
+kubectl run nginx-demo --image=nginx --port=80
+ 
+kubectl expose pod nginx-demo --port=80 --type=NodePort
+
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml
+
+kubectl get pods --namespace tekton-pipelines --watch
+
+Note: Hit CTRL+C to stop monitoring.
+
+kubectl edit svc tekton-dashboard -n tekton-pipelines
+
+type: ClusterIP --> type: NodePort
+
+
+Uninstalling the Dashboard on Kubernetes
+
+The Dashboard can be uninstalled by running the following command:
+
+kubectl delete --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml
+
+
+
+
+at November 12, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Tekton Dashboard
+Thursday, November 11, 2021
+Tekton CLI Installation - Mithun Technologies - +91 99809 23226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Tekton CLI in MAC Book 
+ 
+Tekton provides a CLI, tkn, for easier interaction with Tekton components.
+
+ 
+
+a) Tekton CLI Installation in MAC Book
+
+ 
+
+Open the terminal and execute the below commands
+
+#brew tap tektoncd/tools
+
+#brew install tektoncd/tools/tektoncd-cli
+
+ 
+
+#tkn version
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+at November 11, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Tekton CLI
+Tekton Dashboard Installation in MAC Book - Mithun Technologies - +91 99809 23226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Tekton Dashboard  in MAC Book
+To Install Tekton Dashboard first we need to create a cluster. To create a cluster we can kind tool.
+
+Kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
+
+To install a kind, first we should install docker in our laptop.
+
+
+To install kind in MAC book follow the below command.
+
+#brew install kind
+
+To check the version
+#kind version
+
+
+To Create a Kubernetes cluster use the below commands
+
+#kind create cluster --name tektondemo : It will create a cluster with name 'tektondemo'
+
+##Deleting a Cluster 
+##kind delete cluster --name tektondemo 
+
+To display the nodes
+#kubectl get nodes
+To Display all the pods.
+#kubectl get pod -A 
+To create a namespace with the name 'tekton-pipelines'
+
+#kubectl create ns tekton-pipelines
+To install the latest version of  Tekton Dashboard.
+#kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml 
+
+#kubectl apply --filename https://github.com/tektoncd/pipeline/releases/download/v0.16.1/release.notags.yaml
+
+#kubectl get pods --namespace tekton-pipelines --watch
+
+Note: Hit CTRL+C to stop monitoring.
+
+#kubectl get all -n tekton-pipelines
+
+Accessing the Dashboard
+-----------------------
+
+By using  kubectl port-forward
+------------------------------
+
+#kubectl --namespace tekton-pipelines port-forward svc/tekton-dashboard 9097:9097
+Install Pipeline
+----------------
+Tekton Dashboard requires to have Tekton Pipelines installed.
+Installing the latest Tekton Pipelines release is done by running the following command:
+
+#kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+
+Uninstalling the Dashboard on Kubernetes
+----------------------------------------
+kubectl delete --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml
+
+Tekton Dashboard extensions
+---------------------------
+Follow below url for Extensions 
+https://github.com/tektoncd/dashboard/blob/main/docs/extensions.md
+
+
+
+
+
+
+Tekton Playground
+
+ 
+
+https://katacoda.com/tektoncd
+
+ 
+
+References
+
+https://tekton.dev/docs/
+
+https://github.com/tektoncd/dashboard/blob/main/docs/walkthrough/walkthrough-kind.md
+
+https://github.com/tektoncd/cli/tree/main/docs
+
+https://kind.sigs.k8s.io/
+
+https://github.com/GoogleContainerTools/kaniko
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+
+
+at November 11, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Tekton Dashboard
+Monday, November 8, 2021
+Argo CLI Installation using Kubernetes - Mithun Technologies - +91 99809 23226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Agro CLI using Kubernetes
+kubectl create namespace argo
+kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v3.2.3/install.yaml
+at November 08, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Argo CLI
+Argo CLI Installation in Linux Server - Mithun Technologies - +91 99809 23226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+                                                     Install Agro CLI in Linux Server
+
+# Download the binary
+curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.3/argo-linux-amd64.gz
+
+# Unzip the software
+gunzip argo-linux-amd64.gz
+
+# Make binary executable
+chmod +x argo-linux-amd64
+
+# Move binary to path
+mv ./argo-linux-amd64 /usr/local/bin/argo
+
+# Test installation using below command
+argo version
+at November 08, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Argo CLI
+Argo CLI Installation in MAC Book - Mithun Technologies - +91 99809 23226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Agro CLI in MAC Book
+# Download the binary
+curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.3/argo-darwin-amd64.gz
+
+# Unzip the software
+gunzip argo-darwin-amd64.gz
+
+# Make binary executable
+chmod +x argo-darwin-amd64
+
+# Move binary to path
+mv ./argo-darwin-amd64 /usr/local/bin/argo
+
+# Test installation using below command
+argo version
+ 
+ 
+at November 08, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Argo CLI, MAC Book
+Monday, September 27, 2021
+Java Installation in Ubuntu Linux Server - Mithun Technologies - 9980923226
+
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/ 
+Java Installation in Ubuntu Linux Server
+ 
+
+ By default, Ubuntu 18.04 includes OpenJDK version 11,which is an open-source variant of the JRE and JDK.
+
+To install this version, first update the package index with below command.
+
+#sudo apt update
+
+Then execute below commands based on which version you want to install.
+
+#apt install default-jre : For Defauly version.
+#apt install openjdk-11-jre-headless : For Java 11
+#apt install openjdk-8-jre-headless : For Java 8
+
+Verify the Java installation with below command.
+#java -version
+
+To install the JDK, execute the following command, which will also install the JRE.
+
+#sudo apt install default-jdk
+
+Verify that the JDK is installed by checking the version of javac, the Java compiler using below command.
+
+#javac -version
+
+
+To Install the Open JDK 8, use the below command.
+
+#sudo apt install openjdk-8-jdk
+
+
+at September 27, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Java, Ubuntu
+Monday, September 13, 2021
+Spark Installation in Linux Server - Mithun Technologies - 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Python in Linux Server
+Login as a root user
+
+sudo su -
+
+wget https://www.apache.org/dyn/closer.lua/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+
+tar -zxvf spark-3.1.2-bin-hadoop3.2.tgz
+
+ln -s /opt/spark-3.1.2-bin-hadoop3.2 /opt/spark
+
+useradd spark
+
+chown -R spark:spark /opt/spark*
+
+vi /etc/systemd/system/spark-master.service
+
+[Unit]
+Description=Apache Spark Master
+After=network.target
+
+[Service]
+Type=forking
+User=spark
+Group=spark
+ExecStart=/opt/spark/sbin/start-master.sh
+ExecStop=/opt/spark/sbin/stop-master.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+vi /etc/systemd/system/spark-slave.service.service
+
+[Unit]
+Description=Apache Spark Slave
+After=network.target
+
+[Service]
+Type=forking
+User=spark
+Group=spark
+ExecStart=/opt/spark/sbin/start-slave.sh spark://rhel8lab.linuxconfig.org:7077
+ExecStop=/opt/spark/sbin/stop-slave.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+#systemctl daemon-reload
+
+#systemctl start spark-master.service
+
+#systemctl status spark-master.service
+
+http://IpAddress:8080
+
+
+at September 13, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Spark
+JFrog CLI Install in Linux Server - Mithun Technologies - 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+JFrog CLI in Linux Server
+Login as a root user
+
+sudo su -
+
+
+
+echo "[jfrog-cli]" > jfrog-cli.repo;
+echo "name=jfrog-cli" >> jfrog-cli.repo;
+echo "baseurl=https://releases.jfrog.io/artifactory/jfrog-rpms" >> jfrog-cli.repo;
+echo "enabled=1" >> jfrog-cli.repo; echo "gpgcheck=0" >> jfrog-cli.repo;
+sudo mv jfrog-cli.repo /etc/yum.repos.d/;
+yum install -y jfrog-cli-v2;
+
+
+
+JFrog CLI Installation in MAC
+----------------------------------------
+
+
+brew install jfrog-cli
+
+To check the Version use the below command
+
+jfrog -v
+
+
+
+Reference URL
+
+--------------------
+
+https://jfrog.com/getcli/
+
+at September 13, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: JFrog Artifactory
+Install Scala Build Tool (SBT) in Linux Server - Mithun Technologies - 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Scala Build Tool (SBT) in Linux Server
+Login as a root user  and execute the below commands
+
+sudo su -
+
+curl -L https://www.scala-sbt.org/sbt-rpm.repo > sbt-rpm.repo
+
+sudo mv sbt-rpm.repo /etc/yum.repos.d/
+
+sudo yum install sbt -y
+
+sbt -version
+
+
+
+at September 13, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Scala
+Install Open Shift in Linux Server - Mithun Technologies - 9980923226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Open Shift  in Linux Server
+Login as a root user
+
+sudo su -
+
+For Downloading the OC 
+
+--------------------------------
+https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/
+
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux-4.7.21.tar.gz
+
+
+Extract the Package
+
+--------------------------
+
+tar -zxvf openshift-install-linux-4.7.21.tar.gz -O /usr/local/bin/
+
+Copy the package into /usr/local/bin directory
+
+---------------------------------------------------------
+ 
+
+cp -r openshift-install /usr/local/bin/
+
+ 
+
+at September 13, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Open Shift
+Monday, May 24, 2021
+Install Python in Linux Server - Mithun Technologies - 9980923226
+
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Python in Linux Server
+Login as a root user
+
+sudo su -
+
+Install the development group
+
+yum groupinstall development -y
+
+yum install wget tar -y
+cd /opt
+
+wget https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tgz
+
+tar -xvf Python-3.9.5.tgz
+
+cd Python-3.9.5
+./configure
+
+sudo  make install
+
+python3 --version
+
+python --version
+
+
+
+Install PIP
+
+PIP is a package manager for Python packages, or modules if you like. Note: If you have Python version 3.4 or later, PIP is included by default.
+
+ Download the PIP file
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+ Install PIP by using the below command
+
+python3 get-pip.py
+ 
+Check the PIP version
+pip3 --version 
+ 
+
+at May 24, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Python
+Sunday, March 21, 2021
+Install Nginx HTTP server - RHEL 8 - Mithun Technologies - 9980923226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+ 
+Install Nginx HTTP Server Installation
+ Method 2
+
+#Login as root user and execute the below command for install nginx http server.
+sudo su -
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+sudo yum install nginx
+
+#Enable the service as follows.
+
+systemctl enable nginx.service
+
+#Start the HTTP server as follows.
+
+systemctl start nginx.service
+To check the version we will use below command
+
+nginx -V
+
+ 
+
+
+
+at March 21, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: HTTP Server
+Friday, February 5, 2021
+Ansible Interview Questions - Mithun Technologies - +91 9980923226
+ 
+
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in
+                                                       Ansible Interview Questions
+
+Describe each of the following components in Ansible, including the relationship between them:
+
+    Task
+    Module
+    Play
+    Playbook
+    Role
+Ans)
+
+How Ansible is different from other Automation tools?
+Ans)
+
+What kind of automation you wouldn't do with Ansible and why?
+Ans)
+
+What is an inventory file and how do you define one?
+Ans)
+
+
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+ 
+
+What is a dynamic inventory file? When you would use one?
+Ans)
+
+How do you list all modules and how can you see details on a specific module?
+Ans)
+
+Write a task to create the directory ‘/tmp/new_directory’
+Ans)
+
+You want to run Ansible playbook only on specific minor version of your OS, how would you achieve that?
+Ans)
+
+What the "become" directive used for in Ansible?
+Ans)
+
+What are facts? How to see all the facts of a certain host?
+Ans)
+
+What would be the result of the following play?
+Ans)
+
+
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+ 
+
+What would be the result of running the following task? How to fix it?
+
+- hosts: localhost
+  tasks:
+      - name: Install zlib
+        package:
+          name: zlib
+          state: present
+Ans)
+
+
+Which Ansible best practices are you familiar with?. Name at least three
+Ans)
+
+Explain the directory layout of an Ansible role
+Ans)
+
+What 'blocks' are used for in Ansible?
+Ans)
+
+How do you handle errors in Ansible?
+Ans)
+
+You would like to run a certain command if a task fails. How would you achieve that?
+Ans)
+
+Write a playbook to install ‘zlib’ and ‘vim’ on all hosts if the file ‘/tmp/mario’ exists on the system.
+Ans)
+
+Write a single task that verifies all the files in files_list variable exist on the host
+Ans)
+
+Write a playbook to deploy the file ‘/tmp/system_info’ on all hosts except for controllers group, with the following content
+
+The variable 'whoami' defined in the following places:
+
+    role defaults -> whoami: mario
+    extra vars (variables you pass to Ansible CLI with -e) -> whoami: toad
+    host facts -> whoami: luigi
+    inventory variables (doesn’t matter which type) -> whoami: browser
+
+According to variable precedence, which one will be used?
+
+For each of the following statements determine if it's true or false:
+
+    A module is a collection of tasks
+    It’s better to use shell or command instead of a specific module
+    Host facts override play variables
+    A role might include the following: vars, meta, and handlers
+    Dynamic inventory is generated by extracting information from external sources
+    It’s a best practice to use indention of 2 spaces instead of 4
+    ‘notify’ used to trigger handlers
+    This “hosts: all:!controllers” means ‘run only on controllers group hosts
+
+Explain the Diffrence between Forks and Serial & Throttle.
+Ans)
+
+
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+
+What is ansible-pull? How is it different from how ansible-playbook works?
+Ans)
+
+What is Ansible Vault?
+Ans)
+
+Demonstrate each of the following with Ansible:
+
+    Conditionals
+    Loops
+Ans)
+
+
+What are filters? Do you have experience with writing filters?
+Ans)
+
+Write a filter to capitalize a string
+Ans)
+
+You would like to run a task only if previous task changed anything. How would you achieve that?
+Ans)
+
+What are callback plugins? What can you achieve by using callback plugins?
+Ans)
+
+What is Ansible Collections?
+Ans)
+
+File '/tmp/exercise' includes the following content
+
+Goku = 9001
+Vegeta = 5200
+Trunks = 6000
+Gotenks = 32
+
+With one task, switch the content to:
+
+Goku = 9001
+Vegeta = 250
+Trunks = 40
+Gotenks = 32
+
+
+How do you test your Ansible based projects?
+Ans)
+
+What is Molecule? How does it works?
+Ans)
+
+You run Ansibe tests and you get "idempotence test failed". What does it mean? Why idempotence is important?
+Ans)
+
+ 
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+at February 05, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: DevOps Interview Questions
+Thursday, February 4, 2021
+Linux Commands - Mithun Technologies - +91 - 9980923226
+                                                     Linux Commands  2
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com
+
+                                                       http://mithuntechnologies.com/
+                                                       http://mithuntechnologies.co.in/
+How to check Memory stats and CPU stats as a Linux admin?
+
+Ans)
+
+ 
+
+How to reduce or shrink the size of LVM partition?
+
+Ans)
+
+ 
+
+How can you enhance the security of password file?
+
+Ans)
+
+ 
+
+What is the difference between Cron and Anacron?
+
+Ans)
+
+ 
+
+What command is used to check the number of files, disk space and each user’s defined quota?
+
+Ans)
+
+ 
+
+How can you manage memory in linux machines?
+
+Ans)
+
+ 
+
+What is the name and path of the main system log?
+
+Ans)
+
+ 
+
+How to manage logical volumes?
+
+Ans)
+
+ 
+
+Explain /proc filesystem?
+
+Ans)
+
+ 
+
+What are the fields in the/etc/passwd file?
+
+Ans)
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+How do you terminate an ongoing process?
+
+Ans)
+
+ 
+
+How can you know the execution time of a command?
+
+Ans)
+
+ 
+
+How can you append one file to another in Linux?
+
+Ans)
+
+How you can run a Linux program in the background simultaneously when you start your Linux Server?
+
+Ans)
+
+ 
+
+Difference in soft link and hard link?
+
+Ans)
+
+ 
+
+How to find a particular word from a file?
+
+Ans)
+
+ 
+
+What is stop command?
+
+Ans)
+
+ 
+
+How to stop particular process using Linux command?
+
+Ans)
+
+ 
+
+Can we delete content in a file by using SED command? How to do?
+
+Ans)
+
+ 
+
+How to rename the name of a file or a directory?
+
+Ans)
+
+Using mv command
+
+ 
+
+What is stored in each of the following paths?
+
+    /bin, /sbin, /usr/bin and /usr/sbin
+
+    /etc
+
+    /home
+
+    /var
+
+    /tmp
+
+Ans)
+
+ 
+
+What is special about /tmp directory when compared to other directories?
+
+Ans)
+
+ 
+
+Explain each field in the output of `ls -l` command
+
+Ans)
+
+It shows a detailed list of files in a long format. From the left:
+
+ 
+
+file permissions, number of links, owner name, owner group, file size, timestamp of last modification and directory/file name
+
+ 
+
+What are hidden files/directories? How to list them?
+
+Ans)
+
+ 
+
+Explain piping. How do you perform piping?
+
+Ans)
+
+ 
+
+Running the command df you get "command not found". What could be wrong and how to fix it?
+
+Ans)
+
+Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+How do you schedule tasks periodically?
+
+Ans)
+
+ 
+
+How to check which commands you executed in the past?
+
+Ans)
+
+ 
+
+How to change the permissions of a file?
+
+Ans)
+
+ 
+
+What does the following permissions mean?:
+
+ 
+
+    777
+
+    644
+
+    750
+
+Ans)
+
+ 
+
+What this command does? chmod +x Bhaskar.txt
+
+Ans)
+
+ 
+
+Explain what is setgid and setuid?
+
+Ans)
+
+ 
+
+What is the purpose of sticky bit?
+
+Ans)
+
+ 
+
+What the following commands do?
+
+    chmod
+
+    chown
+
+    chgrp
+
+Ans)
+
+ 
+
+You try to delete a file but it fails. Name at least three different reason as to why it could happen
+
+Ans)
+
+ 
+
+What is systemd?
+
+Ans)
+
+ 
+
+On a system which uses systemd, how would you display the logs?
+
+Ans)
+
+ 
+
+Describe how to make a certain process/app a service
+
+Ans)
+
+ 
+
+Where system logs are located?
+
+Ans)
+
+ 
+
+How to follow file's content as it being appended without opening the file every time?
+
+Ans)
+
+ 
+
+What are you using for troubleshooting and debugging network issues?
+
+Ans)
+
+ 
+
+What are you using for troubleshooting and debugging disk & file system issues?
+
+Ans)
+
+ 
+
+What are you using for troubleshooting and debugging process issues?
+
+Ans)
+
+ 
+
+What are you using for debugging CPU related issues?
+
+Ans)
+
+ 
+
+Explain iostat output
+
+Ans)
+
+ 
+
+How to debug binaries?
+
+Ans)
+
+ 
+
+What kind of information one can find in /proc?
+
+Ans)
+
+ 
+
+Can you create files in /proc?
+
+Ans)
+
+ 
+
+What is the difference between CPU load and utilization?
+
+Ans)
+
+ 
+
+How you measure time execution of a program?
+
+Ans)
+
+ 
+
+What is a kernel, and what does it do?
+
+Ans)
+
+ 
+
+How do you find out which Kernel version your system is using?
+
+Ans)
+
+ 
+
+ 
+
+What is a Linux kernel module and how do you load a new module?
+
+Ans)
+
+ 
+
+Explain user space vs. kernel space
+
+Ans)
+
+ 
+
+What are system calls? What system calls are you familiar with?
+
+Ans)
+
+ 
+
+What virtualization solutions are available for Linux?
+
+Ans)
+
+ 
+
+What is KVM?
+
+Ans)
+
+ 
+
+What is SSH? How to check if a Linux server is running SSH?
+
+Ans)
+
+ 
+
+Why SSH is considered better than telnet?
+
+Ans)
+
+ 
+
+What is stored in ~/.ssh/known_hosts?
+
+Ans)
+
+ 
+
+You try to ssh to a server and you get "Host key verification failed". What does it mean?
+
+Ans)
+
+ 
+
+What is the difference between SSH and SSL?
+
+Ans)
+
+ 
+
+What ssh-keygen is used for?
+
+Ans)
+
+ Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+ 
+
+What is SSH port forwarding?
+
+Ans)
+
+ 
+
+What is Globbing?
+
+Ans)
+
+ 
+
+What are wildcards? Can you give an example of how to use them?
+
+Ans)
+
+ 
+
+Explain what will ls [XYZ] match
+
+Ans)
+
+ 
+
+Explain what will ls [^XYZ] match
+
+Ans)
+
+ 
+
+Explain what will ls [0-5] match
+
+Ans)
+
+ 
+
+What each of the following matches
+
+ 
+
+    ?
+
+ 
+
+    *
+
+Ans)
+
+ 
+
+What do we grep for in each of the following commands?:
+
+ 
+
+    grep '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' some_file
+
+    grep -E "error|failure" some_file
+
+    grep '[0-9]$' some_file
+
+Ans)
+
+ 
+
+Which line numbers will be printed when running `grep '\baaa\b'` on the following content:
+
+ 
+
+aaa bbb ccc.aaa aaaaaa
+
+Ans)
+
+ 
+
+ 
+
+What is the difference single and double quotes?
+
+Ans)
+
+ 
+
+What is escaping? What escape character is used for escaping?
+
+Ans)
+
+ 
+
+What is an exit code? What exit codes are you familiar with?
+
+Ans)
+
+ 
+
+Tell me everything you know about the Linux boot process
+
+Ans)
+
+ 
+
+What is GRUB2?
+
+Ans)
+
+ 
+
+What is Secure Boot?
+
+Ans)
+
+ 
+
+What can you find in /boot?
+
+Ans)
+
+ 
+
+How to check which disks are currently mounted?
+
+Ans)
+
+ 
+
+You run mount command but you get no output. How would you check what mounts you have on your system?
+
+Ans)
+
+ 
+
+What is the difference between a soft link and hard link?
+
+Ans)
+
+ 
+
+True or False? You can create an hard link for a directory
+
+Ans)
+
+ 
+
+True or False? You can create a soft link between different filesystems
+
+Ans)
+
+ 
+
+What happens when you delete the original file in case of soft link and hard link?
+
+Ans)
+
+ 
+
+Can you check what type of filesystem is used in /home?
+
+Ans)
+
+ 
+
+What is a swap partition? What is it used for?
+
+Ans)
+
+ 
+
+How to create a * new empty file * a file with text (without using text editor) * a file with given size
+
+Ans)
+
+ 
+
+You are trying to create a new file but you get "File system is full". You check with df for free space and you see you used only 20% of the space. What could be the problem?
+
+Ans)
+
+ 
+
+How would you check what is the size of a certain directory?
+
+Ans)
+
+ 
+
+What do you know about LVM?
+
+Ans)
+
+ 
+
+Explain the following in regards to LVM:
+
+ 
+
+    PV
+
+    VG
+
+    LV
+
+Ans)
+
+ 
+
+What is NFS? What is it used for?
+
+Ans)
+
+ 
+
+What RAID is used for? Can you explain the differences between RAID 0, 1, 5 and 10?
+
+Ans)
+
+ 
+
+Describe the process of extending a filesystem disk space
+
+Ans)
+
+ 
+
+What is lazy umount?
+
+Ans)
+
+ 
+
+What is tmpfs?
+
+Ans)
+
+ 
+
+Idenfy the wrong in below commands?
+
+    sed "s/1/2/g' /tmp/myFile
+
+    find . -iname *.yaml -exec sed -i "s/1/2/g" {} ;
+
+ 
+
+Ans)
+
+ 
+
+What is stored in each of the following logs?
+
+Ans)
+
+ 
+
+True or False? both /tmp and /var/tmp cleared upon system boot
+
+Ans)
+
+ 
+
+How to check what is the current load average?
+
+Ans)
+
+ 
+
+You know how to see the load average, great. but what each part of it means? for example 1.43, 2.34, 2.78
+
+Ans)
+
+ 
+
+How to check process usage?
+
+Ans)
+
+ 
+
+How to check disk I/O?
+
+Ans)
+
+ 
+
+How to check how much free memory a system has? How to check memory consumption by each process?
+
+Ans)
+
+ 
+
+How to check TCP stats?
+
+Ans)
+
+ 
+
+How to list all the processes running in your system?
+
+Ans)
+
+ 
+
+How to run a process in the background and why to do that in the first place?
+
+Ans)
+
+ 
+
+How can you find how much memory a specific process consumes?
+
+Ans)
+
+ 
+
+What signal is used by default when you run 'kill *process id*'?
+
+Ans)
+
+ 
+
+What signals are you familiar with?
+
+Ans)
+
+ 
+
+What kill 0 does?
+
+Ans)
+
+ 
+
+What kill -0 does?
+
+Ans)
+
+ 
+
+What is a trap?
+
+Ans)
+
+ 
+
+Every couple of days, a certain process stops running. How can you look into why it's happening?
+
+Ans)
+
+ 
+
+What happens when you press ctrl + c?
+
+Ans)
+
+ 
+
+What is a Daemon in Linux?
+
+Ans)
+
+ 
+
+What are the possible states of a process in Linux?
+
+Ans)
+
+ 
+
+How do you kill a process in D state?
+
+Ans)
+
+ 
+
+What is a zombie process?
+
+Ans)
+
+ 
+
+How to get rid of zombie processes?
+
+Ans)
+
+ 
+
+How to find all the
+
+ 
+
+    Processes executed/owned by a certain user
+
+    Process which are Java processes
+
+    Zombie Processes
+
+Ans)
+
+ 
+
+What is the init process?
+
+Ans)
+
+ 
+
+How to change the priority of a process? Why would you want to do that?
+
+Ans)
+
+ 
+
+Can you explain how network process/connection is established and how it's terminated?
+
+Ans)
+
+ 
+
+What strace does? What about ltrace?
+
+Ans)
+
+ 
+
+Find all the files which end with '.yml' and replace the number 1 in 2 in each file
+
+Ans)
+
+ 
+
+You run ls and you get "/lib/ld-linux-armhf.so.3 no such file or directory". What is the problem?
+
+Ans)
+
+ 
+
+How would you split a 50 lines file into 2 files of 25 lines each?
+
+Ans)
+
+ 
+
+What is a file descriptor? What file descriptors are you familiar with?
+
+Ans)
+
+ 
+
+What is NTP? What is it used for?
+
+Ans)
+
+ 
+
+Explain Kernel OOM
+
+Ans)
+
+ 
+
+Linux Security
+
+Ans)
+
+ 
+
+What is chroot? In what scenarios would you consider using it?
+
+Ans)
+
+ 
+
+What is SELiunx?
+
+Ans)
+
+ 
+
+What is Kerberos?
+
+Ans)
+
+ 
+
+What is nftables?
+
+Ans)
+
+ 
+
+What firewalld daemon is responsible for?
+
+Ans)
+
+ 
+
+Do you have experience with hardening servers? Can you describe the process?
+
+Ans)
+
+ 
+
+Linux Networking
+
+Ans)
+
+ 
+
+How to list all the interfaces?
+
+Ans)
+
+ 
+
+What is the loopback (lo) interface?
+
+Ans)
+
+ 
+
+What the following commands are used for?
+
+ 
+
+    ip addr
+
+    ip route
+
+    ip link
+
+    ping
+
+    netstat
+
+    traceroute
+
+Ans)
+
+ 
+
+What is a network namespace? What is it used for?
+
+Ans)
+
+ 
+
+How to check if a certain port is being used?
+
+Ans)
+
+ 
+
+How can you turn your Linux server into a router?
+
+Ans)
+
+ 
+
+What is a virtual IP? In what situation would you use it?
+
+Ans)
+
+ 
+
+True or False? The MAC address of an interface is assigned/set by the OS
+
+Ans)
+
+ 
+
+ 
+
+Can you have more than one default gateway in a given system?
+
+Ans)
+
+ 
+
+Which port is used in each of the following protocols?:
+
+ 
+
+    SSH
+
+ 
+
+    SMTP
+
+ 
+
+    HTTP
+
+ 
+
+    DNS
+
+ 
+
+    HTTPS
+
+Ans)
+
+ 
+
+What is telnet and why is it a bad idea to use it in production? (or at all)
+
+Ans)
+
+ 
+
+What is the routing table? How do you view it?
+
+Ans)
+
+ 
+
+How can you send an HTTP request from your shell?
+
+Ans)
+
+ 
+
+What are packet sniffers? Have you used one in the past? If yes, which packet sniffers have you used and for what purpose?
+
+Ans)
+
+ 
+
+How to list active connections?
+
+Ans)
+
+ 
+
+How to trigger neighbor discovery in IPv6?
+
+Ans)
+
+ 
+
+What is network interface bonding and do you know how it's performed in Linux?
+
+Ans)
+
+ 
+
+What network bonding modes are there?
+
+Ans)
+
+ 
+
+What is a bridge? How it's added in Linux OS?
+
+Ans)
+
+ 
+
+How to check what is the hostname of the system?
+
+Ans)
+
+ 
+
+What the file /etc/resolv.conf is used for? What does it include?
+
+Ans)
+
+ 
+
+What commands are you using for performing DNS queries (or troubleshoot DNS related issues)?
+
+Ans)
+
+ 
+
+Do you have experience with packaging? (as in building packages) Can you explain how does it works?
+
+Ans)
+
+ 
+
+How packages installation/removal is performed on the distribution you are using?
+
+Ans)
+
+ 
+
+RPM: explain the spec format (what it should and can include)
+
+Ans)
+
+ 
+
+How do you list the content of a package without actually installing it?
+
+Ans)
+
+ 
+
+How to know to which package a file on the system belongs to? Is it a problem if it doesn't belongs to any package?
+
+Ans)
+
+ 
+
+Where repositories are stored? (based on the distribution you are using)
+
+Ans)
+
+ 
+
+What is an archive? How do you create one in Linux?
+
+Ans)
+
+ 
+
+How to extract the content of an archive?
+
+Ans)
+
+ 
+
+Why do we need package managers? Why not simply creating archives and publish them?
+
+ 
+
+How to look for a package that provides the command /usr/bin/git? (the package isn't necessarily installed)
+
+Ans)
+
+ 
+
+ 
+
+Linux Applications and Services
+
+Ans)
+
+ 
+
+What can you find in /etc/services?
+
+Ans)
+
+ 
+
+How to make sure a Service starts automatically after a reboot or crash?
+
+Ans)
+
+ 
+
+You run ssh 127.0.0.1 but it fails with "connection refused". What could be the problem?
+
+Ans)
+
+ 
+
+How to print the shared libraries required by a certain program? What is it useful for?
+
+Ans)
+
+ 
+
+What is CUPS?
+
+Ans)
+
+ 
+
+What types of web servers are you familiar with?
+
+Ans)
+
+ 
+
+What is a "superuser" (or root user)? How is it different from regular users?
+
+Ans)
+
+ 
+
+How do you create users? Where user information is stored?
+
+Ans)
+
+ 
+
+Which file stores information about groups?
+
+Ans)
+
+ 
+
+How do you change/set the password of a user?
+
+Ans)
+
+ 
+
+Which file stores users passwords? Is it visible for everyone?
+
+Ans)
+
+ 
+
+Do you know how to create a new user without using adduser/useradd command?
+
+Ans)
+
+ 
+
+What information is stored in /etc/passwd? explain each field
+
+Ans)
+
+ 
+
+How to add a new user to the system without providing him the ability to log-in into the system?
+
+Ans)
+
+ 
+
+ 
+
+ 
+
+How to switch to another user? How to switch to the root user?
+
+Ans)
+
+ 
+
+ 
+
+What is the UID the root user? What about a regular user?
+
+Ans)
+
+ 
+
+What can you do if you lost/forogt the root password?
+
+Ans)
+
+ 
+
+What is sudo? How do you set it up?
+
+Ans)
+
+ 
+
+What is /etc/skel?
+
+Ans)
+
+ 
+
+How to see a list of who logged-in to the system?
+
+Ans)
+
+ 
+
+ 
+
+Explain what each of the following commands does:
+
+    useradd
+
+    usermod
+
+    whoami
+
+    id
+
+Ans)
+
+ 
+
+Where can you find information on the processor?
+
+Ans)
+
+ 
+
+ 
+
+How can you print information on the BIOS, motherboard, processor and RAM?
+
+Ans)
+
+ 
+
+How can you print all the information on connected block devices in your system?
+
+Ans)
+
+ 
+
+Give 5 commands which are two letters long
+
+Ans)
+
+ 
+
+What ways are there for creating a new empty file?
+
+Ans)
+
+ 
+
+How `cd -` works? How does it knows the previous location?
+
+Ans)
+
+ 
+
+List three ways to print all the files in the current directory
+
+Ans)
+
+ 
+
+How to count the number of lines in a file? What about words?
+
+Ans)
+
+ 
+
+You define x=2 in /etc/bashrc and x=6 ~/.bashrc you then login to the system. What would be the value of x?
+
+Ans)
+
+ 
+
+What is the difference between man and info?
+
+Ans)
+
+ 
+
+Explain "environment variables". How do you list all environment variables?
+
+Ans)
+
+ 
+
+How to create your own environment variables?
+
+Ans)
+
+ 
+
+What a double dash (--) mean?
+
+Ans)
+
+ 
+
+What the awk command does? Have you used it? What for?
+
+Ans)
+
+ 
+
+How to print the 4th column in a file?
+
+Ans)
+
+ 
+
+ 
+
+How to print every line that is longer than 79 characters?
+
+Ans)
+
+ 
+
+What the lsof command does? Have you used it? What for?
+
+Ans)
+
+ 
+
+What commands you can use for searching files and/or directories?
+
+Ans)
+
+ 
+
+How can you check what is the path of a certain command?
+
+Ans)
+
+ 
+
+Explain the fork() system call
+
+Ans)
+
+ 
+
+ 
+
+ 
+
+Explain the exec() system call
+
+Ans)
+
+ 
+
+What system call is used for listing files?
+
+Ans)
+
+ 
+
+What system call is used for creating a new process?
+
+Ans)
+
+ 
+
+What are the differences between exec() and fork()?
+
+Ans)
+
+ 
+
+Why do we need the wait system call?
+
+Ans)
+
+ 
+
+What execve() does?
+
+Ans)
+
+ 
+
+What is the return value of malloc?
+
+Ans)
+
+ 
+
+Explain the pipe() system call. What does it used for?
+
+Ans)
+
+ 
+
+What happens when you execute ls -l?
+
+Ans)
+
+ 
+
+What happens when you execute ls -l *.log?
+
+Ans)
+
+ 
+
+What readdir() system call does?
+
+Ans)
+
+ 
+
+What exactly the command alias x=y does?
+
+Ans)
+
+ 
+
+Linux Filesystem & Files
+
+Ans)
+
+ 
+
+How to create a file of a certain size?
+
+Ans)
+
+ 
+
+Can you describe how processes are being created?
+
+Ans)
+
+ 
+
+What does the following block do?:
+
+ 
+
+open("/my/file") = 5
+
+read(5, "file content")
+
+ 
+
+Ans)
+
+ 
+
+Describe three different ways to remove a file (or its content)
+
+Ans)
+
+ 
+
+What is the difference between a process and a thread?
+
+Ans)
+
+ 
+
+What is context switch?
+
+Ans)
+
+ 
+
+You found there is a server with high CPU load but you didn't find a process with high CPU. Ans)
+
+ 
+
+How is that possible?
+
+Ans)
+
+ 
+
+When you run ip a you see there is a device called 'lo'. What is it and why do we need it?
+
+Ans)
+
+ 
+
+What the traceroute command does? How does it works?
+
+Ans)
+
+ 
+
+What is network bonding? What types are you familiar with?
+
+Ans)
+
+ 
+
+How to link two separate network namespaces so you can ping an interface on one namespace from the second one?
+
+Ans)
+
+ 
+
+What are cgroups?
+
+Ans)
+
+ 
+
+Explain Process Descriptor and Task Structure
+
+Ans)
+
+ 
+
+What are the differences between threads and processes?
+
+Ans)
+
+ 
+
+Explain Kernel Threads
+
+Ans)
+
+ 
+
+What happens when socket system call is used?
+
+Ans)
+
+ 
+
+You executed a script and while still running, it got accidentally removed. Is it possible to restore the script while it's still running?
+
+Ans)
+
+ 
+
+What is the difference between MemFree and MemAvailable in /proc/meminfo?
+
+Ans)
+
+ 
+
+What is virtual memory?
+
+Ans)
+
+ 
+
+What is the difference between paging and swapping?
+
+Ans)
+
+ 
+
+Explain what is OOM killer
+
+Ans)
+
+ 
+
+What is a Linux distribution?
+
+Ans)
+
+ 
+
+What Linux distributions are you familiar with?
+
+Ans)
+
+ 
+
+What are the components of a Linux distribution?
+
+Ans)
+
+ 
+
+Wildcards are implemented on user or kernel space?
+
+Ans)
+
+ 
+
+If I plug a new device into a Linux machine, where on the system, a new device entry/file will be created?
+
+Ans)
+
+ 
+
+ 
+
+Why there are different sections in man? What is the difference between the sections?
+
+Ans)
+
+ 
+
+Subscribe our YouTube channel for more Free DevOps videos.
+
+https://www.youtube.com/channel/UC-Jr307MbEREy8bG6McwD6w
+
+at February 04, 2021 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+Labels: Linux Commands
+Older PostsHome
+Subscribe to: Posts (Atom)
+Oracle Java Installation - Linux - Mithun Technologies - 9980923226
+  Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com                                                 ...
+
+Java Installation - Linux - Mithun Technologies - 9980923226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com                                                  ...
+Install Maven Build Tool in Linux Server - Mithun Technologies - +919980923226
+Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com                                                   ...
+Jenkins Installation in RedHat Linux Server - Mithun Technologies - 9980923226
+  Mithun Technologies            +91-9980923226              devopstrainingblr@gmail.com                                                 ...

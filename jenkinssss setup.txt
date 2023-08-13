@@ -1,0 +1,10 @@
+1  cd
+    2  yum install java* -y
+    3  wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    4   rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+    5   yum install fontconfig java-11-openjdk
+    6    yum install jenkins
+    7  systemctl start jenkins
+    8  systemctl enable jenkins
+    9  cat /var/lib/jenkins/secrets/initialAdminPassword
+   10  history
